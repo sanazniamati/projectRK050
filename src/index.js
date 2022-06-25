@@ -1,39 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
-import { Stage, Layer, Text, Rect } from "react-konva";
+import { Stage, Layer, Group, Circle } from "react-konva";
 
 const App = () => {
-  const [text, setText] = useState("");
-  const handelDragStart = () => {
-    setText("Drag Start");
+  const handelClickCircle = (evt) => {
+    alert("You clicked the circle!");
+    evt.cancelBubble = true;
   };
-  const handelDragEnd = () => {
-    setText("Drag End");
+  const handelClickGroup = () => {
+    alert("You clicked on the group!");
+  };
+  const handelClickLayer = () => {
+    alert("You clicked on the layer!");
   };
   return (
     <Stage width={window.innerWidth} height={window.innerHeight}>
-      <Layer>
-        <Text
-          text={text}
-          x={10}
-          y={10}
-          fontSize={24}
-          fontFamily={"Calibri"}
-          fill={"black"}
-        />
-        <Rect
-          x={20}
-          y={100}
-          offset={[50, 25]}
-          width={100}
-          height={50}
-          fill={"#00D2FF"}
-          stroke={"black"}
-          strokeWidth={4}
-          draggable
-          onDragStart={handelDragStart}
-          onDragEnd={handelDragEnd}
-        />
+      <Layer onClick={handelClickLayer}>
+        <Group onClick={handelClickGroup}>
+          <Circle
+            x={350}
+            y={100}
+            radius={50}
+            ScaleX={2}
+            fill={"red"}
+            stroke={"black"}
+            strokeWidth={4}
+            strokeScaleEnabled={false}
+            onClick={handelClickCircle}
+          />
+        </Group>
       </Layer>
     </Stage>
   );
